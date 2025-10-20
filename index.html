@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Diwali</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #2a1a4e 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .diya-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            animation: floatIn 1.5s ease-out;
+        }
+
+        .diya {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            border-radius: 50% 50% 0 0;
+            position: relative;
+            box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+            animation: diyaGlow 2s ease-in-out infinite;
+        }
+
+        .diya::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 25px solid #ffeb3b;
+            filter: blur(2px);
+            animation: flicker 1.5s ease-in-out infinite;
+        }
+
+        .diya::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #fff9c4, #ffeb3b);
+            border-radius: 50%;
+            box-shadow: 0 0 20px #ffeb3b, 0 0 40px #ff9800;
+            animation: flicker 1.5s ease-in-out infinite;
+        }
+
+        .greeting {
+            font-size: 4.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b35, #f7931e, #ffeb3b, #ff6b35);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite, fadeInScale 1s ease-out;
+            text-shadow: 0 0 50px rgba(255, 107, 53, 0.5);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .subtext {
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            text-shadow: 0 0 20px rgba(255, 235, 59, 0.5);
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        .decorative-line {
+            width: 300px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff6b35, #ffeb3b, #ff6b35, transparent);
+            margin: 2rem auto;
+            animation: expandLine 1.5s ease-out 0.8s backwards;
+        }
+
+        .message {
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .sparkle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #ffeb3b;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 3;
+            box-shadow: 0 0 10px #ffeb3b;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        @keyframes diyaGlow {
+            0%, 100% {
+                box-shadow: 0 0 30px rgba(255, 107, 53, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 50px rgba(255, 107, 53, 0.9), 0 0 70px rgba(255, 235, 59, 0.4);
+            }
+        }
+
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1.1);
+            }
+        }
+
+        @keyframes expandLine {
+            from {
+                width: 0;
+            }
+            to {
+                width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .greeting {
+                font-size: 2.5rem;
+            }
+            .subtext {
+                font-size: 1.2rem;
+            }
+            .message {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            .diya {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="fireworks"></canvas>
+    
+    <div class="container">
+        <div class="diya-container">
+            <div class="diya"></div>
+            <div class="diya"></div>
+            <div class="diya"></div>
+        </div>
+        
+        <h1 class="greeting">HAPPY DIWALI</h1>
+        <p class="subtext">Festival of Lights</p>
+        
+        <div class="decorative-line"></div>
+        
+        <p class="message">
+            May this Diwali bring joy, prosperity, and endless happiness to your life. 
+            Wishing you a bright and sparkling celebration!
+        </p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 8,
+                    y: (Math.random() - 0.5) * 8
+                };
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+                this.size = Math.random() * 3 + 1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            update() {
+                this.velocity.y += 0.1;
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+                this.alpha -= this.decay;
+            }
+        }
+
+        class Firework {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height;
+                this.targetY = Math.random() * (canvas.height * 0.4) + 50;
+                this.velocity = (canvas.height - this.targetY) / 60;
+                this.particles = [];
+                this.exploded = false;
+                this.colors = [
+                    '#ff6b35', '#f7931e', '#ffeb3b', '#ff5722', 
+                    '#ffc107', '#ff9800', '#ffeb3b', '#fff9c4'
+                ];
+            }
+
+            draw() {
+                if (!this.exploded) {
+                    ctx.fillStyle = '#fff';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    this.particles.forEach(p => p.draw());
+                }
+            }
+
+            update() {
+                if (!this.exploded) {
+                    this.y -= this.velocity;
+                    if (this.y <= this.targetY) {
+                        this.explode();
+                    }
+                } else {
+                    this.particles = this.particles.filter(p => p.alpha > 0);
+                    this.particles.forEach(p => p.update());
+                }
+            }
+
+            explode() {
+                this.exploded = true;
+                const particleCount = 80;
+                const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+                
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push(new Particle(this.x, this.y, color));
+                }
+            }
+        }
+
+        let fireworks = [];
+        let lastTime = 0;
+
+        function animate(currentTime) {
+            if (currentTime - lastTime > 800) {
+                fireworks.push(new Firework());
+                lastTime = currentTime;
+            }
+
+            ctx.fillStyle = 'rgba(10, 10, 26, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            fireworks = fireworks.filter(f => !f.exploded || f.particles.length > 0);
+            fireworks.forEach(f => {
+                f.draw();
+                f.update();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate(0);
+
+        // Sparkle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.8) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.style.opacity = '0';
+                    sparkle.style.transform = 'translateY(-20px)';
+                    sparkle.style.transition = 'all 0.5s ease-out';
+                }, 10);
+
+                setTimeout(() => sparkle.remove(), 600);
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
